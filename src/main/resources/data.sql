@@ -1,6 +1,6 @@
 --Employee INSERT COMMAND
 -- avans gün için
-INSERT INTO employee (ID, NAME, SURNAME,JOBSTARTDATE) VALUES  (1,'Gokhan','Pehlivan','2022-04-05');
+--INSERT INTO employee (ID, NAME, SURNAME,JOBSTARTDATE) VALUES  (1,'Gokhan','Pehlivan','2022-04-05');
 -- 1 yıldan uzun süreli
 --INSERT INTO employee (ID, NAME, SURNAME,JOBSTARTDATE) VALUES  (1,'Gokhan','Pehlivan','2020-04-05');
 

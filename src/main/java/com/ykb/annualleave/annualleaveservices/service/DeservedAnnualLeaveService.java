@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -36,11 +37,18 @@ public class DeservedAnnualLeaveService {
 
 
     public DeservedAnnualLeave createDeservedAnnualLeave(DeservedAnnualLeave deservedAnnualLeave){
+        DeservedAnnualLeave saveDeservedAnnualLeave=null;
         DeservedAnnualLeave deservedAnnualLeaves = deservedAnnualLeaveRepository.findByDeservedAnnualLeave(deservedAnnualLeave.getEmployeeId());
-        deservedAnnualLeaves.setDeservedAnnualLeave(deservedAnnualLeave.getDeservedAnnualLeave());
-        deservedAnnualLeaves.setEmployeeId(deservedAnnualLeave.getEmployeeId());
-        DeservedAnnualLeave saveDeservedAnnualLeave = deservedAnnualLeaveRepository.save(deservedAnnualLeaves);
 
+        if(Objects.nonNull(deservedAnnualLeaves)) {
+            deservedAnnualLeaves.setDeservedAnnualLeave(deservedAnnualLeave.getDeservedAnnualLeave());
+            deservedAnnualLeaves.setEmployeeId(deservedAnnualLeave.getEmployeeId());
+             saveDeservedAnnualLeave = deservedAnnualLeaveRepository.save(deservedAnnualLeaves);
+        }
+        else{
+            saveDeservedAnnualLeave = deservedAnnualLeaveRepository.save(deservedAnnualLeave);
+
+        }
         return saveDeservedAnnualLeave;
     }
     public Integer deservedAnnualLeaveDay(EmployeeDto employeeDto){
