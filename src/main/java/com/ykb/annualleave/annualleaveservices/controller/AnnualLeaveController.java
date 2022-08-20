@@ -7,6 +7,7 @@ import com.ykb.annualleave.annualleaveservices.dto.PersonalAnnualLeaveDto;
 import com.ykb.annualleave.annualleaveservices.entity.Employee;
 import com.ykb.annualleave.annualleaveservices.entity.PersonalAnnualLeave;
 import com.ykb.annualleave.annualleaveservices.enums.ApproveType;
+import com.ykb.annualleave.annualleaveservices.exception.LocalizedException;
 import com.ykb.annualleave.annualleaveservices.service.AnnualLeaveService;
 import com.ykb.annualleave.annualleaveservices.service.DeservedAnnualLeaveService;
 import com.ykb.annualleave.annualleaveservices.service.EmployeeService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -39,7 +41,7 @@ public class AnnualLeaveController {
     VacationDayService vacationDayService;
 
     @PostMapping
-    public ResponseEntity<BaseResponse> createAnnualLeaveManage(@RequestBody PersonalAnnualLeaveDto annualLeaveDto) {
+    public ResponseEntity<BaseResponse> createAnnualLeaveManage(@RequestBody PersonalAnnualLeaveDto annualLeaveDto) throws LocalizedException {
 
         Double personalUsedAnnualLeaveCount = annualLeaveService.personalUsedAnnualLeaveCount(annualLeaveDto.getId());
         Double deservedAnnualLeaveDayCount = employeeService.deservedAnnualLeaveDay(annualLeaveDto.getId());
@@ -47,7 +49,7 @@ public class AnnualLeaveController {
         try {
             izinGunSayisi = DateUtils.getWorkingAnnualLeaveDayNumber(annualLeaveDto.getAnnualLeaveStartDate().toString(), annualLeaveDto.getAnnualLeaveFinishDate().toString());
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new LocalizedException("message.parse_exception", Locale.US);
         }
         /*avans case*/
         if (deservedAnnualLeaveDayCount.equals(0.0)) {
