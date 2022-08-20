@@ -85,4 +85,5 @@ Localization Exception Messages
 OOP and SOLID principles have been applied.
 
 ## Contact
+Linkedin : https://www.linkedin.com/in/gokhan-p-472b95160/
 Created by gokhanpehh@gmail.com
