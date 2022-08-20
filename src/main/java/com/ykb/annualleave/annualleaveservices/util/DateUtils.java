@@ -14,13 +14,13 @@ public class DateUtils {
 
     /**
      * turns the weekend day
-     * @param ld
+     * @param starDate
      * @return
      */
-    public static Integer isWeekend(final LocalDate ld, final LocalDate endDate) {
+    public static Integer isWeekend(final LocalDate starDate, final LocalDate endDate) {
         Integer dayCount=0;
 
-        for (LocalDate date = ld; date.isBefore(endDate); date = date.plusDays(1)) {
+        for (LocalDate date = starDate; date.isBefore(endDate); date = date.plusDays(1)) {
 
             DayOfWeek day = DayOfWeek.of(date.get(ChronoField.DAY_OF_WEEK));
 
@@ -29,7 +29,6 @@ public class DateUtils {
             }
 
         }
-
 
         return dayCount;
     }
