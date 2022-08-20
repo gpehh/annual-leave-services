@@ -10,6 +10,7 @@
 ##Use
 - Uygulama başlatılırken data.sql için bir "çalışan" employee kaydedilir.
 - http://localhost:8080/h2-console adresinden tablolara erişilebilir.
+Swagger http://localhost:8080/swagger-ui.html adresinde erişilebilir.
 - Tablolar :
 - Deserved Annual Leave( Hak edilen Yıllık izin) , çalışanın çalıştığı yıla göre hakettiği izin bilgisini tutar.
 - Employee, Çalışan bilgiler ve işe giriş tarihi
@@ -82,7 +83,8 @@ Localization Exception Messages
 
 
 ## Features
-OOP and SOLID principles have been applied.
+OOP, SOLID and Clean Code principles have been applied.
 
 ## Contact
+Linkedin : https://www.linkedin.com/in/gokhan-p-472b95160/
 Created by gokhanpehh@gmail.com
