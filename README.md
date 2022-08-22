@@ -68,7 +68,26 @@ Localization Exception Messages
   - resource altında messages.properties ve messages_en.properties dosyaları oluşuturuldu.
   - message.parse_exception = Tarih formatı hatalı
   - message.parse_exception = Error date format!
-  -  throw new LocalizedException("message.parse_exception", Locale.US);
+  - throw new LocalizedException("message.parse_exception", Locale.US);
+
+Senaryo 2
+  - Yeni kullanıcı http://localhost:8080/employees adresinden
+  {
+    "id":3,
+    "name":"Ahmet",
+    "surname":"Yılmaz",
+    "jobStartDate": "2012-04-05"
+    }
+  - Yukarıdaki id değeri her yeni employee için değiştirilir.
+  - 2012 işe giriş tarihli olarak 10 yıl çalışan olarak kaydedilir.
+
+  ![img_3.png](img_3.png)
+İzin talebi için istek atılır. 10 yıl 18 gün izin hakkını aşan bir istek gönderildi.
+![img_4.png](img_4.png)
+Yönetici onay için istek atılır.
+![img_5.png](img_5.png)
+REJECTED statude talep reddedildi.
+  "talep edilen izin hak edilen izin gun sayısını aşmaktadır.",
 
 ## Technologies Used
 - Java 11
