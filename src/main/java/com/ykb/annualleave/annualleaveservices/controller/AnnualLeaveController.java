@@ -4,6 +4,7 @@ package com.ykb.annualleave.annualleaveservices.controller;
 import com.ykb.annualleave.annualleaveservices.dto.BaseRequest;
 import com.ykb.annualleave.annualleaveservices.dto.BaseResponse;
 import com.ykb.annualleave.annualleaveservices.dto.PersonalAnnualLeaveDto;
+import com.ykb.annualleave.annualleaveservices.entity.DeservedAnnualLeave;
 import com.ykb.annualleave.annualleaveservices.entity.Employee;
 import com.ykb.annualleave.annualleaveservices.entity.PersonalAnnualLeave;
 import com.ykb.annualleave.annualleaveservices.enums.ApproveType;
@@ -37,6 +38,9 @@ public class AnnualLeaveController {
 
     @Autowired
     VacationDayService vacationDayService;
+
+    @Autowired
+    DeservedAnnualLeaveService deservedAnnualLeaveService;
 
     @PostMapping
     public ResponseEntity<BaseResponse> createAnnualLeaveManage(@RequestBody PersonalAnnualLeaveDto annualLeaveDto) throws LocalizedException {
@@ -77,6 +81,9 @@ public class AnnualLeaveController {
             personalAnnualLeave.setAnnualLeaveFinishDate(annualLeaveDto.getAnnualLeaveFinishDate());
             personalAnnualLeave.setApprove(ApproveType.WAITING_APPROVE.getCode());
             PersonalAnnualLeaveDto dto = annualLeaveService.createAnnualLeave(personalAnnualLeave);
+
+
+
             if (Objects.nonNull(dto)) {
                 return ResponseEntity.ok(new BaseResponse("Başvurunuz Alındı.", ApproveType.WAITING_APPROVE.getName(), new BaseRequest(annualLeaveDto.getId())));
             }

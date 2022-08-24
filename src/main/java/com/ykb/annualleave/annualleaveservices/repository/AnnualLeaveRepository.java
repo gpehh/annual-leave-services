@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface AnnualLeaveRepository extends JpaRepository<PersonalAnnualLeave, Long> {
-    @Query("select l from PersonalAnnualLeave l where l.employeeId = ?1 and l.approve=1")
+    @Query("select l from PersonalAnnualLeave l where l.employeeId = ?1 and l.approve=3")
     public List<PersonalAnnualLeave> findByEmployeeIdRemainingLeaves(Long employeeId);
 
     @Query("select l from PersonalAnnualLeave l where l.employeeId = ?1 and l.approve=3")

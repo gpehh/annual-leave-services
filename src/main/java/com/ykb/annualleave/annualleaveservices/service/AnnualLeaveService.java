@@ -33,6 +33,13 @@ public class AnnualLeaveService {
 
         return annualLeaveDto;
     }
+    public PersonalAnnualLeave create(PersonalAnnualLeave annualLeave) {
+
+        PersonalAnnualLeave savePersonalAnnualLeave = annualLeaveRepository.save(annualLeave);
+
+
+        return savePersonalAnnualLeave;
+    }
 
     public PersonalAnnualLeaveDto updateAnnualLeave(Long id,Double advance, Integer approveType) {
 

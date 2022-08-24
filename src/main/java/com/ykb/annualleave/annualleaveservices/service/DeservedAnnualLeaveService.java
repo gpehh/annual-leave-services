@@ -2,27 +2,22 @@ package com.ykb.annualleave.annualleaveservices.service;
 
 import com.ykb.annualleave.annualleaveservices.dto.EmployeeDto;
 import com.ykb.annualleave.annualleaveservices.entity.DeservedAnnualLeave;
-import com.ykb.annualleave.annualleaveservices.entity.Employee;
-import com.ykb.annualleave.annualleaveservices.entity.PersonalAnnualLeave;
 import com.ykb.annualleave.annualleaveservices.repository.DeservedAnnualLeaveRepository;
-import com.ykb.annualleave.annualleaveservices.repository.EmployeeRepository;
 import com.ykb.annualleave.annualleaveservices.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Component
 public class DeservedAnnualLeaveService {
 
     @Autowired
     DeservedAnnualLeaveRepository deservedAnnualLeaveRepository;
-    public Optional<DeservedAnnualLeave> getAnnualLeave(Long id){
-        return deservedAnnualLeaveRepository.findById(id);
+    public DeservedAnnualLeave getAnnualLeave(Long id){
+        return deservedAnnualLeaveRepository.findByDeservedAnnualLeave(id);
     }
 
     /*public Double getDeserved(long id){

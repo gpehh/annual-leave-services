@@ -76,24 +76,25 @@ public class AnnualLeaveManagerController {
 
         /*ILERI TARIHLI IZIN ICIN KALAN IZIN GUN SAYISINDAN DÜŞER kullanılan yıllık izin kaydedilir.*/
         if(Objects.nonNull(annualLeave)){
-            Optional<DeservedAnnualLeave> deservedAnnualLeave = deservedAnnualLeaveService.getAnnualLeave(baseRequest.getEmployeeId());
-            if(annualLeaveService.personalUsedAnnualLeaveCount(baseRequest.getEmployeeId()) + izinGunSayisi >deservedAnnualLeave.get().getDeservedAnnualLeave()){
+            DeservedAnnualLeave deservedAnnualLeave = deservedAnnualLeaveService.getAnnualLeave(baseRequest.getEmployeeId());
+            if(annualLeaveService.personalUsedAnnualLeaveCount(baseRequest.getEmployeeId()) + izinGunSayisi >deservedAnnualLeave.getDeservedAnnualLeave()){
                 return ResponseEntity.ok(new BaseResponse("talep edilen izin hak edilen izin gun sayısını aşmaktadır.",ApproveType.REJECTED.getName()));
             }
             else{
-                PersonalAnnualLeaveDto annualLeave1 = new PersonalAnnualLeaveDto();
-                annualLeave1.setEmployeeId(employee.get().getId());
-                annualLeave1.setUsedAnnualLeave(izinGunSayisi);
-                annualLeave1.setAnnualLeaveStartDate(annualLeave.getAnnualLeaveStartDate());
-                annualLeave1.setAnnualLeaveFinishDate(annualLeave.getAnnualLeaveFinishDate());
-                annualLeave1.setTransactionDate(LocalDate.now());
-                annualLeave1.setApprove(ApproveType.APPROVED.getCode());
-                PersonalAnnualLeaveDto dto = annualLeaveService.createAnnualLeave(annualLeave1);
+                PersonalAnnualLeave  personalAnnualLeave= annualLeaveService.personalUsedAnnualLeave(employee.get().getId());
+                personalAnnualLeave.setEmployeeId(employee.get().getId());
+                personalAnnualLeave.setUsedAnnualLeave(izinGunSayisi);
+                personalAnnualLeave.setAnnualLeaveStartDate(annualLeave.getAnnualLeaveStartDate());
+                personalAnnualLeave.setAnnualLeaveFinishDate(annualLeave.getAnnualLeaveFinishDate());
+                personalAnnualLeave.setTransactionDate(LocalDate.now());
+                personalAnnualLeave.setApprove(ApproveType.APPROVED.getCode());
+                PersonalAnnualLeave dto = annualLeaveService.create(personalAnnualLeave);
 
-                DeservedAnnualLeave deservedAnnualLeave1 = new DeservedAnnualLeave();
-                deservedAnnualLeave1.setEmployeeId(employee.get().getId());
-                deservedAnnualLeave1.setDeservedAnnualLeave(deservedAnnualLeave.get().getDeservedAnnualLeave() - izinGunSayisi);
-                deservedAnnualLeaveService.createDeservedAnnualLeave(deservedAnnualLeave1);
+                DeservedAnnualLeave deservedAnnualLeaveRecord = deservedAnnualLeaveService.getAnnualLeave(employee.get().getId());
+
+                deservedAnnualLeaveRecord.setEmployeeId(employee.get().getId());
+                deservedAnnualLeaveRecord.setDeservedAnnualLeave(deservedAnnualLeave.getDeservedAnnualLeave() - izinGunSayisi);
+                deservedAnnualLeaveService.createDeservedAnnualLeave(deservedAnnualLeaveRecord);
                 return ResponseEntity.ok(new BaseResponse("Request Success.",ApproveType.APPROVED.getName()));
 
 
