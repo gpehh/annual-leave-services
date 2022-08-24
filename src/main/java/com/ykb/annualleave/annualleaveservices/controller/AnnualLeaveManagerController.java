@@ -78,6 +78,9 @@ public class AnnualLeaveManagerController {
         if(Objects.nonNull(annualLeave)){
             DeservedAnnualLeave deservedAnnualLeave = deservedAnnualLeaveService.getAnnualLeave(baseRequest.getEmployeeId());
             if(annualLeaveService.personalUsedAnnualLeaveCount(baseRequest.getEmployeeId()) + izinGunSayisi >deservedAnnualLeave.getDeservedAnnualLeave()){
+                PersonalAnnualLeave  personalAnnualLeave= annualLeaveService.personalUsedAnnualLeave(employee.get().getId());
+                personalAnnualLeave.setApprove(ApproveType.REJECTED.getCode());
+                annualLeaveService.create(personalAnnualLeave);
                 return ResponseEntity.ok(new BaseResponse("talep edilen izin hak edilen izin gun sayısını aşmaktadır.",ApproveType.REJECTED.getName()));
             }
             else{
