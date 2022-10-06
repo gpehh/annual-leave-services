@@ -76,6 +76,7 @@ public class AnnualLeaveService {
         for(PersonalAnnualLeave item : personalAnnualLeaveList){
             usedAnnualLeaveAdvanceCount = usedAnnualLeaveAdvanceCount + item.getAdvance();
         }
+        //test commit
         return usedAnnualLeaveAdvanceCount;
     }
 
